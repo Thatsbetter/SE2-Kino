@@ -9,6 +9,8 @@ import java.awt.event.WindowEvent;
 
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
 
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
+
 /**
  * TODO für Blatt 8: Löschen
  * 
@@ -35,7 +37,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
 
     private BarzahlungsWerkzeugUI _ui;
     //TODO: int mit Geldbetrag ersertzen
-    private int _preis;
+    private Geldbetrag _preis;
     private boolean _barzahlungErfolgreich;
     private boolean _ausreichenderGeldbetrag;
 
@@ -56,7 +58,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param preis der einzunehmende Gelbetrag
      */
-    public void fuehreBarzahlungDurch(int preis)
+    public void fuehreBarzahlungDurch(Geldbetrag preis)
     {
         //TODO: int mit Geldbetrag ersetzen
         _preis = preis;
@@ -177,6 +179,29 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         try
         {
             int eingabeBetrag = Integer.parseInt(eingabePreis);
+            _ausreichenderGeldbetrag = (eingabeBetrag >= _preis.getEurocent());
+            int differenz = Math.abs(eingabeBetrag - _preis.getEurocent());
+            zeigeRestbetrag(differenz);
+        }
+        catch (NumberFormatException ignore)
+        {
+            _ausreichenderGeldbetrag = false;
+            zeigeFehlertext();
+        }
+        zeigeAusreichenderGeldbetragStatus();
+    }
+    
+    /**
+        private void reagiereAufEingabeText(String eingabePreis)
+    {
+
+        if (eingabePreis.isEmpty())
+        {
+            eingabePreis = "0";
+        }
+        try
+        {
+            int eingabeBetrag = Integer.parseInt(eingabePreis);
             _ausreichenderGeldbetrag = (eingabeBetrag >= _preis);
             int differenz = Math.abs(eingabeBetrag - _preis);
             zeigeRestbetrag(differenz);
@@ -188,6 +213,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         }
         zeigeAusreichenderGeldbetragStatus();
     }
+    */
 
     /**
      * Beendet den Bezahlvorgang mit Erfolg.
@@ -214,7 +240,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
     {
         zeigePreis();
         loescheGezahltenBetrag();
-        zeigeRestbetrag(_preis);
+        zeigeRestbetrag(_preis.getEurocent());
         zeigeAusreichenderGeldbetragStatus();
     }
 
