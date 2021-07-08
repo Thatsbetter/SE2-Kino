@@ -37,12 +37,12 @@ public class GeldbetragTest
 	@Test
 	public void testSubtrahiere()
 	{
-	    assertEquals(Geldbetrag.selectGeldbetrag(5, 21),
-	            _einEuroZwanzigCent.subtrahiere(_vierEuroEinCent));
+	    assertEquals(Geldbetrag.selectGeldbetrag(2, 81),
+	    		_vierEuroEinCent.subtrahiere(_einEuroZwanzigCent));
 	    assertEquals(Geldbetrag.selectGeldbetrag(0, 0),
 	            _nullEuroNullCent.subtrahiere(_nullEuroNullCent));
 	    assertEquals(Geldbetrag.selectGeldbetrag(1, 20),
-	            _nullEuroNullCent.subtrahiere(_einEuroZwanzigCent));
+	    		_einEuroZwanzigCent.subtrahiere(_nullEuroNullCent));
 	}
 
 	@Test
@@ -58,7 +58,7 @@ public class GeldbetragTest
 	{
 	    assertTrue(_einEuroZwanzigCent.istGroesserGleich(_nullEuroNullCent));
 	    assertTrue(_einEuroZwanzigCent.istGroesserGleich(_einEuroZwanzigCent));
-	    assertTrue(_nullEuroNullCent.istGroesserGleich(_einEuroZwanzigCent));
+	    assertFalse(_nullEuroNullCent.istGroesserGleich(_einEuroZwanzigCent));
 	}
 
 	@Test

@@ -87,15 +87,8 @@ public class Geldbetrag
 	public Geldbetrag multipliziere(int faktor)
 	{
         assert istMultiplizierenMoeglich(faktor);
-        
-        int cent = (_centAnteil * faktor) % 100;
-        
-        int euro = _euroAnteil * faktor;
-        
-        cent = cent + ( _euroAnteil * faktor) % 100;
-        euro = euro + (_centAnteil * faktor / 100);
-        
-	    return selectGeldbetrag(euro, cent);
+        int eurocent = getEurocent() * faktor;
+        return selectGeldbetrag(eurocent);
 	}
 
 	
