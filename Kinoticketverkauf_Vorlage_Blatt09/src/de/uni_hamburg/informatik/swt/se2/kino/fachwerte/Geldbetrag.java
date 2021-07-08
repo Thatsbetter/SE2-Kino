@@ -82,16 +82,6 @@ public class Geldbetrag
         return new Geldbetrag(0, 0);
     }
 
-    public int getEuroAnteil()
-    {
-        return _euroAnteil;
-    }
-
-    public int getCentAnteil()
-    {
-        return _centAnteil;
-    }
-
     @Override
     public String toString()
     {
