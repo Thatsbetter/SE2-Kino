@@ -19,8 +19,6 @@ public class GeldbetragTest
 
     public void testKonstruktor()
     {
-        assertEquals(1, _einEuroZwanzigCent.getEuroAnteil());
-        assertEquals(20, _einEuroZwanzigCent.getCentAnteil());
     }
 
     @Test
@@ -114,20 +112,6 @@ public class GeldbetragTest
     {
         assertEquals("1,20 Euro", _einEuroZwanzigCent.toString());
         assertEquals("0,00 Euro", _nullEuroNullCent.toString());
-    }
-
-    @Test
-    public void testGetEuroAnteil()
-    {
-        assertEquals(1, _einEuroZwanzigCent.getEuroAnteil());
-        assertEquals(4, _vierEuroEinCent.getEuroAnteil());
-    }
-
-    @Test
-    public void testGetCentAnteil()
-    {
-        assertEquals(20, _einEuroZwanzigCent.getEuroAnteil());
-        assertEquals(1, _vierEuroEinCent.getEuroAnteil());
     }
 
     @Test
