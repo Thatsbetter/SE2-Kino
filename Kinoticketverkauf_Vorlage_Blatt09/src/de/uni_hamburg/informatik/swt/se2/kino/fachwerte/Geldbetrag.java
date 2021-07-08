@@ -8,7 +8,7 @@ public class Geldbetrag
     private final int _euroAnteil;
     private final int _centAnteil;
     private static final int MAXCENTANTEIL = 99;
-    private static Map<String, Geldbetrag> werteMenge = new HashMap<String, Geldbetrag>();
+    public static Map<String, Geldbetrag> werteMenge = new HashMap<String, Geldbetrag>();
     
     /**
 	*erzeugt einen neuen Geldbetrag 
@@ -43,6 +43,27 @@ public class Geldbetrag
         _centAnteil = eurocent % 100;
     }
     
+    /**
+	*erzeugt einen neuen Geldbetrag 
+	*
+	*@param geldbetrag  
+	*
+	*@require geldbetrag muss Form E+,CC haben
+	*
+	*/
+	private Geldbetrag(String geldbetrag)
+    {   
+        String[] geldBetragArray = geldbetrag.split(",");
+    	int euro = Integer.parseInt(geldBetragArray[0]);
+    	int cent = Integer.parseInt(geldBetragArray[1]);
+    	
+    	assert istGueltigerEuroAnteil(euro) : "Vorbedingung verletzt: istGueltigerEuroAnteil(euro)!";
+    	assert istGueltigerCentAnteil(cent) : "Vorbedingung verletzt: istGueltigerCentAnteil(cent)!";
+
+        _euroAnteil = euro;
+        _centAnteil = cent;
+    }
+	
     /**
 	*addiert zwei Geldbetraege
 	*
@@ -198,16 +219,15 @@ public class Geldbetrag
 	
 	/**
 	*prüft, ob String gültig ist
-	*@param ein String ,das man überprüfen will 
+	*@param stringGeldbetrag ein String ,das man überprüfen will 
 	*@return boolean
 	*/
 	public static boolean istGueltigerString(String stringGeldbetrag)
     {
-        return  stringGeldbetrag.matches("[1-9][0-9]{0,8},[0-9]{1,2}") ||
-        		stringGeldbetrag.matches("0,[0-9]{1,2}");
+        return  stringGeldbetrag.matches("[1-9][0-9]{0,8},[0-9]{0,2}") ||
+        		stringGeldbetrag.matches("0,[0-9]{0,2}")|| stringGeldbetrag.matches("[0-9]{1,8}") ;
                 
     }
-    	
     	
 	/**
 	*prüft, ob EuroAnteil gültig ist
@@ -304,15 +324,36 @@ public class Geldbetrag
     {
     	assert istGueltigerString(geldbetrag) : "Vorbedingung verletzt: istGueltigerString(geldbetrag)!";
 
+    	geldbetrag = formatGeldbetragString(geldbetrag);
     	String key = geldbetrag;
-    	int eurocent = Integer.parseInt(geldbetrag.replaceFirst("," , ""));
-    	
- 
+
     	if(!werteMenge.containsKey(key))
     	{
-    		werteMenge.put(key, new Geldbetrag(eurocent));
+    		werteMenge.put(key, new Geldbetrag(geldbetrag));
     	}
         return werteMenge.get(key);
+    }
+    /**
+     * Formatiert den String, sodass er die Form E+,CC hat
+     * @param geldbetrag : der Geldbetrag
+     * @return
+     */
+    private static String formatGeldbetragString(String geldbetrag)
+    {
+    	if(!geldbetrag.contains(","))
+    	{
+    		geldbetrag = geldbetrag.concat(",00");
+    	}
+    	else if(geldbetrag.charAt(geldbetrag.length()-2)== ',')
+    	{
+            geldbetrag = geldbetrag.concat("0");
+        }
+    	else if(geldbetrag.charAt(geldbetrag.length()-1)== ',')
+    	{
+            geldbetrag = geldbetrag.concat("00");
+        }
+    	    	
+    	return geldbetrag;
     }
         
 }

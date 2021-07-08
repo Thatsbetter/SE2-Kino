@@ -61,7 +61,6 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      */
     public void fuehreBarzahlungDurch(Geldbetrag preis)
     {
-        //TODO: int mit Geldbetrag ersetzen
         _preis = preis;
         _ausreichenderGeldbetrag = false;
         _barzahlungErfolgreich = false;
@@ -177,44 +176,38 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         {
             eingabePreis = "0";
         }
-        try
+        
+        if(!Geldbetrag.istGueltigerString(eingabePreis))
         {
-            int eingabeBetrag = Integer.parseInt(eingabePreis);
-            _ausreichenderGeldbetrag = (eingabeBetrag >= _preis.getEurocent());
-            int differenz = Math.abs(eingabeBetrag - _preis.getEurocent());
-            zeigeRestbetrag(differenz);
-        }
-        catch (NumberFormatException ignore)
-        {
-            _ausreichenderGeldbetrag = false;
+        	_ausreichenderGeldbetrag = false;
             zeigeFehlertext();
         }
-        zeigeAusreichenderGeldbetragStatus();
+        
+        int eingabeBetrag = Geldbetrag.selectGeldbetrag(eingabePreis).getEurocent();
+        _ausreichenderGeldbetrag = (eingabeBetrag >= _preis.getEurocent());
+        int differenz = Math.abs(eingabeBetrag - _preis.getEurocent());
+        zeigeRestbetrag(differenz);
+
+        zeigeAusreichenderGeldbetragStatus();                      
+        
+//        try
+//        {
+//        	Geldbetrag.istGueltigerString(eingabePreis);
+//        	// 34,5 -> 3,45
+//            int eingabeBetrag = Geldbetrag.selectGeldbetrag(eingabePreis).getEurocent();
+//            _ausreichenderGeldbetrag = (eingabeBetrag >= _preis.getEurocent());
+//            int differenz = Math.abs(eingabeBetrag - _preis.getEurocent());
+//            zeigeRestbetrag(differenz);
+//        }
+//        catch (NumberFormatException ignore)
+//        {
+//            _ausreichenderGeldbetrag = false;
+//            zeigeFehlertext();
+//        }
+//        zeigeAusreichenderGeldbetragStatus();
     }
     
-    /**
-        private void reagiereAufEingabeText(String eingabePreis)
-    {
 
-        if (eingabePreis.isEmpty())
-        {
-            eingabePreis = "0";
-        }
-        try
-        {
-            int eingabeBetrag = Integer.parseInt(eingabePreis);
-            _ausreichenderGeldbetrag = (eingabeBetrag >= _preis);
-            int differenz = Math.abs(eingabeBetrag - _preis);
-            zeigeRestbetrag(differenz);
-        }
-        catch (NumberFormatException ignore)
-        {
-            _ausreichenderGeldbetrag = false;
-            zeigeFehlertext();
-        }
-        zeigeAusreichenderGeldbetragStatus();
-    }
-    */
 
     /**
      * Beendet den Bezahlvorgang mit Erfolg.
@@ -296,7 +289,8 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      */
     private void zeigePreis()
     {
+    	//TODO: Einheit "Euro"
         _ui.getPreisTextfield()
-            .setText(_preis.getFormatiertenString());
+            .setText(_preis.getFormatiertenString()+ " Euro");
     }
 }

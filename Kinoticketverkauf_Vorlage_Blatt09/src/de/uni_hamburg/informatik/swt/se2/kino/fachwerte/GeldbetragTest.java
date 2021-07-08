@@ -11,11 +11,10 @@ import org.junit.Test;
 
 public class GeldbetragTest
 {
-    Geldbetrag _einEuroZwanzigCent = Geldbetrag.selectGeldbetrag(1, 20);
+	Geldbetrag _einEuroZwanzigCent = Geldbetrag.selectGeldbetrag(1, 20);
     Geldbetrag _nullEuroNullCent = Geldbetrag.selectGeldbetrag(0, 0);
     Geldbetrag _vierEuroEinCent = Geldbetrag.selectGeldbetrag(4, 1);
     Geldbetrag _maxEuroMaxCent = Geldbetrag.selectGeldbetrag(Integer.MAX_VALUE/100 - 99, 99);
-    Map<String, Geldbetrag> werteMenge = new HashMap<String, Geldbetrag>();
 
     @Test
 	public void testAddiere()
@@ -31,7 +30,7 @@ public class GeldbetragTest
     @Test
     public void testKonstruktor()
     {
-    	
+    	//TODO
     }
     
 	@Test
@@ -82,8 +81,8 @@ public class GeldbetragTest
 	@Test
 	public void testGetFormatiertenString()
 	{
-	    assertEquals("1,20 Euro", _einEuroZwanzigCent.toString());
-	    assertEquals("0,00 Euro", _nullEuroNullCent.toString());
+	    assertEquals("1,20", _einEuroZwanzigCent.toString());
+	    assertEquals("0,00", _nullEuroNullCent.toString());
 	}
 
 	@Test
@@ -125,19 +124,29 @@ public class GeldbetragTest
     public void testSelectGeldbetrag()
     {
         //int, int
-        assertFalse(werteMenge.containsKey("1,20"));
-        Geldbetrag.selectGeldbetrag(1, 20);
-        assertTrue(werteMenge.containsKey("1,20"));
+        assertFalse(Geldbetrag.werteMenge.containsKey("1,23"));
+        Geldbetrag.selectGeldbetrag(1, 23);
+        assertTrue(Geldbetrag.werteMenge.containsKey("1,23"));
 
         //int
-        assertFalse(werteMenge.containsKey("2,20"));
-        Geldbetrag.selectGeldbetrag(220);
-        assertTrue(werteMenge.containsKey("1,20"));
+        assertFalse(Geldbetrag.werteMenge.containsKey("2,22"));
+        Geldbetrag.selectGeldbetrag(222);
+        assertTrue(Geldbetrag.werteMenge.containsKey("2,22"));
 
         //String
-        assertFalse(werteMenge.containsKey("3,20"));
-        Geldbetrag.selectGeldbetrag("3,20");
-        assertTrue(werteMenge.containsKey("1,20"));
+        assertFalse(Geldbetrag.werteMenge.containsKey("10,10"));
+        Geldbetrag.selectGeldbetrag("10,1");
+        assertTrue(Geldbetrag.werteMenge.containsKey("10,10"));
+        
+        //String
+        assertFalse(Geldbetrag.werteMenge.containsKey("20,00"));
+        Geldbetrag.selectGeldbetrag("20,");
+        assertTrue(Geldbetrag.werteMenge.containsKey("20,00"));
+        
+        //String
+        assertFalse(Geldbetrag.werteMenge.containsKey("30,00"));
+        Geldbetrag.selectGeldbetrag("30");
+        assertTrue(Geldbetrag.werteMenge.containsKey("30,00"));
     }
 
 }
