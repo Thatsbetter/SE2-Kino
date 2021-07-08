@@ -24,7 +24,7 @@ public class Geldbetrag
 	*
 	*@return Geldbetrag die Summe der zwei Geldbetraege
 	*/
-	public Geldbetrag summiere(Geldbetrag summand)
+	public Geldbetrag addiere(Geldbetrag summand)
 	{
 	    return summand;
 	}

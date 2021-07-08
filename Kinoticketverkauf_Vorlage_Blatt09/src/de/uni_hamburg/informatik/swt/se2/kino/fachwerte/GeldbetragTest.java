@@ -18,14 +18,14 @@ public class GeldbetragTest
     Map<String, Geldbetrag> werteMenge = new HashMap<String, Geldbetrag>();
 
     @Test
-	public void testSummiere()
+	public void testAddiere()
 	{
 	    assertEquals(new Geldbetrag(5, 21),
-	            _einEuroZwanzigCent.summiere(_vierEuroEinCent));
+	            _einEuroZwanzigCent.addiere(_vierEuroEinCent));
 	    assertEquals(new Geldbetrag(0, 0),
-	            _nullEuroNullCent.summiere(_nullEuroNullCent));
+	            _nullEuroNullCent.addiere(_nullEuroNullCent));
 	    assertEquals(new Geldbetrag(1, 20),
-	            _nullEuroNullCent.summiere(_einEuroZwanzigCent));
+	            _nullEuroNullCent.addiere(_einEuroZwanzigCent));
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class GeldbetragTest
 	}
 	
 	@Test
-	public void testFormatiertenString()
+	public void testGetFormatiertenString()
 	{
 	    assertEquals("1,20 Euro", _einEuroZwanzigCent.toString());
 	    assertEquals("0,00 Euro", _nullEuroNullCent.toString());
