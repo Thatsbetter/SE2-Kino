@@ -17,10 +17,6 @@ public class GeldbetragTest
     Geldbetrag _maxEuroMaxCent = new Geldbetrag(Integer.MAX_VALUE, 99);
     Map<String, Geldbetrag> werteMenge = new HashMap<String, Geldbetrag>();
 
-    public void testKonstruktor()
-    {
-    }
-
     @Test
     public void testIstGueltigerString()
     {
