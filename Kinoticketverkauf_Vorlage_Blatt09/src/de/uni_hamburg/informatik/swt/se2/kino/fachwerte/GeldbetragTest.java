@@ -89,8 +89,8 @@ public class GeldbetragTest
 	@Test
 	public void testToString()
 	{
-	    assertEquals("1,20 Euro", _einEuroZwanzigCent.toString());
-	    assertEquals("0,00 Euro", _nullEuroNullCent.toString());
+	    assertEquals("1,20", _einEuroZwanzigCent.toString());
+	    assertEquals("0,00", _nullEuroNullCent.toString());
 	}
 
 	@Test
@@ -99,44 +99,43 @@ public class GeldbetragTest
 
         assertTrue(Geldbetrag.istGueltigerString("1,20"));
         assertFalse(Geldbetrag.istGueltigerString("500a"));
-        assertTrue(Geldbetrag.istGueltigerString("00,04"));
+        assertTrue(Geldbetrag.istGueltigerString("0,04"));
 
     }
 
     @Test
     public void testIstGueltigerEuroAnteil()
     {
-        assertEquals(false, Geldbetrag.istGueltigerEuroAnteil(-1));
+        assertFalse(Geldbetrag.istGueltigerEuroAnteil(-1));
         assertTrue(Geldbetrag.istGueltigerEuroAnteil(0));
         assertTrue(Geldbetrag.istGueltigerEuroAnteil(1));
-        assertEquals(false,
-                Geldbetrag.istGueltigerEuroAnteil(Integer.MAX_VALUE + 1));
+        assertFalse(Geldbetrag.istGueltigerEuroAnteil(Integer.MAX_VALUE + 1));
     }
 
     @Test
     public void testIstGueltigerCentAnteil()
     {
-        assertEquals(false, Geldbetrag.istGueltigerCentAnteil(-1));
+        assertFalse(Geldbetrag.istGueltigerCentAnteil(-1));
         assertTrue(Geldbetrag.istGueltigerCentAnteil(0));
         assertTrue(Geldbetrag.istGueltigerCentAnteil(1));
-        assertEquals(false, Geldbetrag.istGueltigerCentAnteil(100));
+        assertFalse(Geldbetrag.istGueltigerCentAnteil(100));
     }
 
     @Test
     public void testSelectGeldbetrag()
     {
         //int, int
-        assertEquals(false, werteMenge.containsKey("1,20"));
+        assertFalse(werteMenge.containsKey("1,20"));
         Geldbetrag.selectGeldbetrag(1, 20);
         assertTrue(werteMenge.containsKey("1,20"));
 
         //int
-        assertEquals(false, werteMenge.containsKey("2,20"));
+        assertFalse(werteMenge.containsKey("2,20"));
         Geldbetrag.selectGeldbetrag(220);
         assertTrue(werteMenge.containsKey("1,20"));
 
         //String
-        assertEquals(false, werteMenge.containsKey("3,20"));
+        assertFalse(werteMenge.containsKey("3,20"));
         Geldbetrag.selectGeldbetrag("3,20");
         assertTrue(werteMenge.containsKey("1,20"));
     }

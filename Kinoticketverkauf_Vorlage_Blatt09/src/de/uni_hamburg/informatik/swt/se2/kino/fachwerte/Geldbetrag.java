@@ -56,7 +56,7 @@ public class Geldbetrag
 	public Geldbetrag addiere(Geldbetrag summand)
 	{
         assert istAddierenMoeglich(summand);
-       	int euroCentResultat = getEurocent() - summand.getEurocent();
+       	int euroCentResultat = getEurocent() + summand.getEurocent();
         return selectGeldbetrag(euroCentResultat);
         
 	}
@@ -243,7 +243,7 @@ public class Geldbetrag
 	*/
     public static boolean istGueltigerEurocentBetrag(int eurocent)
     {
-        return eurocent > 0 && eurocent < Integer.MAX_VALUE;
+        return eurocent >= 0 && eurocent <= Integer.MAX_VALUE;
     }
     
     
