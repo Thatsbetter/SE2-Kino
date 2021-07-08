@@ -45,7 +45,7 @@ public class VorstellungTest
         assertEquals(_16_45, v.getAnfangszeit());
         assertEquals(_20_15, v.getEndzeit());
         assertEquals(_11_07_2008, v.getDatum());
-        assertEquals(1230, v.getPreis());
+        assertEquals(Geldbetrag.selectGeldbetrag(1230), v.getPreis());
         assertNotNull(v.toString());
     }
 
@@ -85,7 +85,7 @@ public class VorstellungTest
         s.add(Platz.get(5, 6));
         s.add(Platz.get(5, 7));
 
-        assertEquals(3690, v.getPreisFuerPlaetze(s));
+        assertEquals(Geldbetrag.selectGeldbetrag(1230), v.getPreisFuerPlaetze(s));
     }
 
     @Test
