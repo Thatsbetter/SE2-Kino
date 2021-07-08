@@ -17,7 +17,68 @@ public class Geldbetrag
         _centAnteil = cent;
     }
 
-    public static boolean istGueltigerString(String s)
+    /**
+	*addiert zwei Geldbetraege
+	*
+	*@param summand ein zu addierender Geldbetrag
+	*
+	*@return Geldbetrag die Summe der zwei Geldbetraege
+	*/
+	public Geldbetrag addiere(Geldbetrag summand)
+	{
+	    return summand;
+	}
+
+	public Geldbetrag subtrahiere(Geldbetrag subtrahend)
+	{
+	
+	    return subtrahend;
+	}
+
+	public Geldbetrag multiplizere(int faktor)
+	{
+	    return new Geldbetrag(0, 0);
+	}
+
+	/*
+	*
+	
+	* checkt ob es groesser oder kleiner ist
+	
+	*@return
+	*/
+	public boolean istGroesserGleich(Geldbetrag g)
+	{
+	    return true;
+	}
+
+	public boolean istAddierenMoeglich(Geldbetrag summand)
+	{
+		return true;
+	}
+
+	public boolean istSubtrahierenMoeglich(int faktor)
+	{
+		return true;
+	}
+
+	public boolean istMultiplizierenMoeglich(int faktor)
+	{
+		return true;
+	}
+	
+	public String getFormatiertenString()
+	{
+	    return "";
+	}
+
+	@Override
+	public String toString()
+	{
+	    return getFormatiertenString();
+	}
+
+	public static boolean istGueltigerString(String s)
     {
         return true;
     }
@@ -28,18 +89,6 @@ public class Geldbetrag
     }
 
     public static boolean istGueltigerCentAnteil(int cent)
-    {
-        return true;
-    }
-
-    /*
-    *
-    
-    * checkt ob es groesser oder kleiner ist
-    
-    *@return
-    */
-    public boolean istGroesserGleich(Geldbetrag g)
     {
         return true;
     }
@@ -58,49 +107,5 @@ public class Geldbetrag
     {
         return null;
     }
-
-    /**
-    *summiert zwei Geldbetraege auf
-    *
-    *@param summand ein zu addierender Geldbetrag
-    *
-    *@return Geldbetrag ein aufsummierter Geldbetrag
-    */
-    public Geldbetrag summiere(Geldbetrag summand)
-    {
-        return summand;
-    }
-
-    public Geldbetrag subtrahiere(Geldbetrag subtrahend)
-    {
-
-        return subtrahend;
-    }
-
-    public Geldbetrag multiplizere(int faktor)
-    {
-        return new Geldbetrag(0, 0);
-    }
-
-    public int getEuroAnteil()
-    {
-        return _euroAnteil;
-    }
-
-    public int getCentAnteil()
-    {
-        return _centAnteil;
-    }
-
-    @Override
-    public String toString()
-    {
-        return getFormatiertenString();
-    }
-
-    public String getFormatiertenString()
-    {
-        return "";
-    }
-
+        
 }
