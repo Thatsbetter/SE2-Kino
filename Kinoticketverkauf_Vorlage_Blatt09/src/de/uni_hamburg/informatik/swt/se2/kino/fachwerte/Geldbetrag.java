@@ -18,11 +18,11 @@ public class Geldbetrag
     }
 
     /**
-	*summiert zwei Geldbetraege auf
+	*addiert zwei Geldbetraege
 	*
 	*@param summand ein zu addierender Geldbetrag
 	*
-	*@return Geldbetrag ein aufsummierter Geldbetrag
+	*@return Geldbetrag die Summe der zwei Geldbetraege
 	*/
 	public Geldbetrag summiere(Geldbetrag summand)
 	{
@@ -57,11 +57,16 @@ public class Geldbetrag
 		return true;
 	}
 
-	public boolean istMultiplizierenMoeglich(int faktor)
+	public boolean istSubtrahierenMoeglich(int faktor)
 	{
 		return true;
 	}
 
+	public boolean istMultiplizierenMoeglich(int faktor)
+	{
+		return true;
+	}
+	
 	public String getFormatiertenString()
 	{
 	    return "";

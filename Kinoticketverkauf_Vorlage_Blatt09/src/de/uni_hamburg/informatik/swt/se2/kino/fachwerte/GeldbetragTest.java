@@ -18,6 +18,76 @@ public class GeldbetragTest
     Map<String, Geldbetrag> werteMenge = new HashMap<String, Geldbetrag>();
 
     @Test
+	public void testSummiere()
+	{
+	    assertEquals(new Geldbetrag(5, 21),
+	            _einEuroZwanzigCent.summiere(_vierEuroEinCent));
+	    assertEquals(new Geldbetrag(0, 0),
+	            _nullEuroNullCent.summiere(_nullEuroNullCent));
+	    assertEquals(new Geldbetrag(1, 20),
+	            _nullEuroNullCent.summiere(_einEuroZwanzigCent));
+	}
+
+	@Test
+	public void testSubtrahiere()
+	{
+	    assertEquals(new Geldbetrag(5, 21),
+	            _einEuroZwanzigCent.subtrahiere(_vierEuroEinCent));
+	    assertEquals(new Geldbetrag(0, 0),
+	            _nullEuroNullCent.subtrahiere(_nullEuroNullCent));
+	    assertEquals(new Geldbetrag(1, 20),
+	            _nullEuroNullCent.subtrahiere(_einEuroZwanzigCent));
+	}
+
+	@Test
+	public void testMultipliziere()
+	{
+	    assertEquals(new Geldbetrag(2, 40),
+	            _einEuroZwanzigCent.multiplizere(2));
+	    assertEquals(new Geldbetrag(0, 0), _nullEuroNullCent.multiplizere(2));
+	}
+
+	@Test
+	public void testIstGroesserGleich()
+	{
+	    assertTrue(_einEuroZwanzigCent.istGroesserGleich(_nullEuroNullCent));
+	    assertTrue(_einEuroZwanzigCent.istGroesserGleich(_einEuroZwanzigCent));
+	    assertTrue(_nullEuroNullCent.istGroesserGleich(_einEuroZwanzigCent));
+	}
+
+	@Test
+	public void testIstAddierenMoeglich()
+	{
+		
+	}
+	
+	@Test
+	public void testIstSubtrahierenMoeglich()
+	{
+		
+	}
+	
+	@Test
+	public void testIstMultiplizierenMoeglich()
+	{
+		
+	}
+	
+	@Test
+	public void testFormatiertenString()
+	{
+	    assertEquals("1,20 Euro", _einEuroZwanzigCent.toString());
+	    assertEquals("0,00 Euro", _nullEuroNullCent.toString());
+	}
+
+	@Test
+	public void testToString()
+	{
+	    assertEquals("1,20 Euro", _einEuroZwanzigCent.toString());
+	    assertEquals("0,00 Euro", _nullEuroNullCent.toString());
+	}
+
+	@Test
     public void testIstGueltigerString()
     {
 
@@ -63,58 +133,6 @@ public class GeldbetragTest
         assertEquals(false, werteMenge.containsKey("3,20 Euro"));
         Geldbetrag.selectGeldbetrag("3,20 Euro");
         assertTrue(werteMenge.containsKey("1,20 Euro"));
-    }
-
-    @Test
-    public void testIstGroesserGleich()
-    {
-        assertTrue(_einEuroZwanzigCent.istGroesserGleich(_nullEuroNullCent));
-        assertTrue(_einEuroZwanzigCent.istGroesserGleich(_einEuroZwanzigCent));
-        assertTrue(_nullEuroNullCent.istGroesserGleich(_einEuroZwanzigCent));
-    }
-
-    @Test
-    public void testSummiere()
-    {
-        assertEquals(new Geldbetrag(5, 21),
-                _einEuroZwanzigCent.summiere(_vierEuroEinCent));
-        assertEquals(new Geldbetrag(0, 0),
-                _nullEuroNullCent.summiere(_nullEuroNullCent));
-        assertEquals(new Geldbetrag(1, 20),
-                _nullEuroNullCent.summiere(_einEuroZwanzigCent));
-    }
-
-    @Test
-    public void testSubtrahiere()
-    {
-        assertEquals(new Geldbetrag(5, 21),
-                _einEuroZwanzigCent.subtrahiere(_vierEuroEinCent));
-        assertEquals(new Geldbetrag(0, 0),
-                _nullEuroNullCent.subtrahiere(_nullEuroNullCent));
-        assertEquals(new Geldbetrag(1, 20),
-                _nullEuroNullCent.subtrahiere(_einEuroZwanzigCent));
-    }
-
-    @Test
-    public void testMultipliziere()
-    {
-        assertEquals(new Geldbetrag(2, 40),
-                _einEuroZwanzigCent.multiplizere(2));
-        assertEquals(new Geldbetrag(0, 0), _nullEuroNullCent.multiplizere(2));
-    }
-
-    @Test
-    public void testToString()
-    {
-        assertEquals("1,20 Euro", _einEuroZwanzigCent.toString());
-        assertEquals("0,00 Euro", _nullEuroNullCent.toString());
-    }
-
-    @Test
-    public void testFormatiertenString()
-    {
-        assertEquals("1,20 Euro", _einEuroZwanzigCent.toString());
-        assertEquals("0,00 Euro", _nullEuroNullCent.toString());
     }
 
 }
