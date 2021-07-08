@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
 
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
+import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.GeldbetragTest;
 
 /**
  * TODO für Blatt 8: Löschen
@@ -278,15 +279,16 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
             .setText(" Err ");
     }
 
-    /**
+	/**    
      * Setzt eine übergebene Differenz im Restbetrag-Textfeld
      * 
      * @param differenz ein eingegebener Betrag
      */
     private void zeigeRestbetrag(int differenz)
     {
+     	Geldbetrag differenzBetrag = new Geldbetrag(differenz);
         _ui.getRestbetragTextfield()
-            .setText(differenz + " Eurocent");
+            .setText(differenzBetrag.getFormatiertenString());
     }
 
     /**
@@ -295,6 +297,6 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
     private void zeigePreis()
     {
         _ui.getPreisTextfield()
-            .setText(_preis + " Eurocent");
+            .setText(_preis.getFormatiertenString());
     }
 }
