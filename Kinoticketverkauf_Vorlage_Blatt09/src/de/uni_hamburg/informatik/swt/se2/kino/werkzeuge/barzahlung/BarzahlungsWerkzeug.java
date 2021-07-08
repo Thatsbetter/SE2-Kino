@@ -286,7 +286,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      */
     private void zeigeRestbetrag(int differenz)
     {
-     	Geldbetrag differenzBetrag = new Geldbetrag(differenz);
+     	Geldbetrag differenzBetrag = Geldbetrag.selectGeldbetrag(differenz);
         _ui.getRestbetragTextfield()
             .setText(differenzBetrag.getFormatiertenString());
     }
