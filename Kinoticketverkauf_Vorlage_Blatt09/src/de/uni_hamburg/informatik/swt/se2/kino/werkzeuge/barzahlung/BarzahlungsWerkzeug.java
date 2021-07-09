@@ -12,7 +12,6 @@ import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 
 /**
- * TODO für Blatt 8: Löschen
  * 
  * Das Barzahlungswerkzeug behandelt die Kasseneingabe. Es ermöglicht die
  * Eingabe eines gezahlten Betrags und ermittelt automatisch den Restbetrag zur
@@ -36,7 +35,6 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
 {
 
     private BarzahlungsWerkzeugUI _ui;
-    //TODO: int mit Geldbetrag ersertzen
     private Geldbetrag _preis;
     private boolean _barzahlungErfolgreich;
     private boolean _ausreichenderGeldbetrag;

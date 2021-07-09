@@ -184,7 +184,7 @@ public class Geldbetrag
 	*/
 	public String getFormatiertenString()
 	{
-		return toString() + "€";
+		return toString() + " €";
 	}
 		
 	/**
