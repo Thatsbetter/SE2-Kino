@@ -184,14 +184,16 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         	_ausreichenderGeldbetrag = false;
             zeigeFehlertext();
         }
-        
-        int eingabeBetrag = Geldbetrag.selectGeldbetrag(eingabePreis).getEurocent();
-        _ausreichenderGeldbetrag = (eingabeBetrag >= _preis.getEurocent());
-        int differenz = Math.abs(eingabeBetrag - _preis.getEurocent());
-        
-        zeigeRestbetrag(differenz);
+        else
+        {
+        	int eingabeBetrag = Geldbetrag.selectGeldbetrag(eingabePreis).getEurocent();
+            _ausreichenderGeldbetrag = (eingabeBetrag >= _preis.getEurocent());
+            int differenz = Math.abs(eingabeBetrag - _preis.getEurocent());
+            
+            zeigeRestbetrag(differenz);
 
-        zeigeAusreichenderGeldbetragStatus();                      
+            zeigeAusreichenderGeldbetragStatus();  
+        }           
         
 //        try
 //        {
