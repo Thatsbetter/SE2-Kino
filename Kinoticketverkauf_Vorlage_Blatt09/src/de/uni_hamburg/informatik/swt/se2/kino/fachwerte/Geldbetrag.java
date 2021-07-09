@@ -7,8 +7,8 @@ public class Geldbetrag
 {
     private final int _euroAnteil;
     private final int _centAnteil;
-    private static final int MAXCENTANTEIL = 99;
-    public static Map<String, Geldbetrag> werteMenge = new HashMap<String, Geldbetrag>();
+    private static final int MAXEUROCENT = Integer.MAX_VALUE/100 - 99;
+    private static final Map<String, Geldbetrag> werteMenge = new HashMap<String, Geldbetrag>();
     
     /**
 	*erzeugt einen neuen Geldbetrag 
@@ -101,14 +101,14 @@ public class Geldbetrag
 	/**
 	*multipliziert unseren Betrag mit einem Faktor
 	*
-	*@param faktor ein integer um den man den Betrag vervielfachen will
+	*@param faktor ein float, um den man den Betrag vervielfachen will
 	*
 	*@return Geldbetrag
 	*/
-	public Geldbetrag multipliziere(int faktor)
+	public Geldbetrag multipliziere(float faktor)
 	{
         assert istMultiplizierenMoeglich(faktor);
-        int eurocent = getEurocent() * faktor;
+        int eurocent = Math.round(getEurocent() * faktor);
         return selectGeldbetrag(eurocent);
 	}
 
@@ -123,7 +123,7 @@ public class Geldbetrag
 	*/
 	public boolean istGroesserGleich(Geldbetrag geldbetrag)
 	{
-	    return this.getEurocent() >= geldbetrag.getEurocent();
+	    return getEurocent() >= geldbetrag.getEurocent();
 	}
 	
 	/**
@@ -136,7 +136,7 @@ public class Geldbetrag
 	*/
 	public boolean istAddierenMoeglich(Geldbetrag summand)
 	{
-		int differenz = Integer.MAX_VALUE  - summand.getEurocent();
+		int differenz = MAXEUROCENT  - summand.getEurocent();
 		return differenz >= getEurocent();
 	}
 	
@@ -150,7 +150,7 @@ public class Geldbetrag
 	*/
 	public boolean istSubtrahierenMoeglich(Geldbetrag subtrahend)
 	{
-		return this.istGroesserGleich(subtrahend);
+		return istGroesserGleich(subtrahend);
 	}
 	
 	/**
@@ -163,10 +163,7 @@ public class Geldbetrag
 	*/
 	public boolean istMultiplizierenMoeglich(float faktor)
 	{
-        assert faktor >= 1 : "Vorbedingung verletzt: faktor >= 1!";
-        
-		int quotient = (int) (Integer.MAX_VALUE / faktor);
-		return quotient >= getEurocent();
+		return faktor >= 0 && (faktor <= 1 || ((int) (Integer.MAX_VALUE / faktor)) >= getEurocent());
 	}
 	
 	
@@ -175,7 +172,6 @@ public class Geldbetrag
 	*
 	*@return int
 	*/
-	
 	public int getEurocent()
 	{
 	    return 100*_euroAnteil + _centAnteil;
@@ -184,23 +180,24 @@ public class Geldbetrag
 	/**
 	*gibt Geldbetrag als formatierten String zurück
 	*
-	*@return String 
+	*@return : formatierter String 
 	*/
-	
-	
 	public String getFormatiertenString()
 	{
-		return _euroAnteil + "," + centToString(_centAnteil);
+		return toString() + "€";
 	}
 		
 	/**
-	*gibt Geldbetrag als EuroCentformat zurück
+	* Formatiert ein int in einen String
 	*
-	*@return int
+	*@param cent : der zu formatierende Centbetrag
+	*@return ein formatierter String, der den Centbetrag enthält
 	*/
-	
 	private static String centToString(int cent)
 	{
+		assert cent<100 : "Vorbedingung verletzt: cent<100!";
+		assert cent>=0 : "Vorbedingung verletzt: cent>0!";
+
 		if(cent<10)
 		{
 			return "0" + cent;
@@ -211,27 +208,35 @@ public class Geldbetrag
 		}
 	}
 
+
+	/**
+	*ein string der die felder unseres objects durch ein komma getrennt wiederspiegelt
+	*
+	*@return eine string representation unseres Geldbetrag objects
+	*/
 	@Override
 	public String toString()
 	{
-	    return getFormatiertenString();
+	    return _euroAnteil + "," + centToString(_centAnteil);
 	}
 	
 	/**
-	*prüft, ob String gültig ist
-	*@param stringGeldbetrag ein String ,das man überprüfen will 
+	*Prüft, ob stringGeldbetrag ein gültiger Wert für Geldbetrag ist.
+	*
+	*@param stringGeldbetrag ein String, den man überprüfen will 
 	*@return boolean
 	*/
 	public static boolean istGueltigerString(String stringGeldbetrag)
     {
         return  stringGeldbetrag.matches("[1-9][0-9]{0,8},[0-9]{0,2}") ||
-        		stringGeldbetrag.matches("0,[0-9]{0,2}")|| stringGeldbetrag.matches("[0-9]{1,8}") ;
+        		stringGeldbetrag.matches("0,[0-9]{0,2}")|| stringGeldbetrag.matches("[0-9]{0,8}") ;
                 
     }
     	
 	/**
-	*prüft, ob EuroAnteil gültig ist
-	*@param  int als euro 
+	*Prüft, ob EuroAnteil ein gültiger Wert für Geldbetrag ist.
+	*
+	*@param  euro : der int, den man überprüfen will 
 	*@return boolean
 	*/
     public static boolean istGueltigerEuroAnteil(int euro)
@@ -240,8 +245,9 @@ public class Geldbetrag
     }
     
     /**
-	*prüft, ob CentAnteil gültig ist
-	*@param  int als cent 
+	*Prüft, ob CentAnteil ein gültiger Wert für Geldbetrag ist.
+	*
+	*@param  cent : der int, den man überprüfen will 
 	*@return boolean
 	*/
     public static boolean istGueltigerCentAnteil(int cent)
@@ -250,8 +256,9 @@ public class Geldbetrag
     }
     
     /**
-	*prüft, ob EuroCent gültig ist
-	*@param  int als EuroCent 
+	*Prüft, ob EuroCent ein gültiger Wert für Geldbetrag ist.
+	*
+	*@param  eurocent : der int, den man überprüfen will  
 	*@return boolean
 	*/
     public static boolean istGueltigerEurocentBetrag(int eurocent)
@@ -265,12 +272,9 @@ public class Geldbetrag
 	*
 	*@param euro : der Euroanteil
 	*@param cent : der Centanteil
-	*
 	*@require istGueltigerEuroAnteil(euro)
 	*@require istGueltigerCentAnteil(cent)
-	*
 	*@ensure result != null
-	*
 	*@return Geldbetrag 
 	*/
     public static Geldbetrag selectGeldbetrag(int euro, int cent)
@@ -290,11 +294,8 @@ public class Geldbetrag
 	*Gibt den entsprechenden Geldbetrag zurück
 	*
 	*@param eurocent : EuroCent
-	*
 	*@require  istGueltigerEurocentBetrag(eurocent)
-	*
 	*@ensure result != null
-	*
 	*@return Geldbetrag 
 	*/
     public static Geldbetrag selectGeldbetrag(int eurocent)
@@ -313,11 +314,8 @@ public class Geldbetrag
 	*Gibt den entsprechenden Geldbetrag zurück
 	*
 	*@param geldbetrag : der Geldbetrag
-	*
 	*@require istGueltigerString(geldbetrag)
-	*
 	*@ensure result != null
-	*
 	*@return Geldbetrag 
 	*/
     public static Geldbetrag selectGeldbetrag(String geldbetrag)
@@ -333,13 +331,19 @@ public class Geldbetrag
     	}
         return werteMenge.get(key);
     }
+    
     /**
      * Formatiert den String, sodass er die Form E+,CC hat
+     * nimmt String mit oder ohne komma an, falls es keine Kommas gibt, wird sie hinzugefügt
+     *
+     * @require key != null
      * @param geldbetrag : der Geldbetrag
-     * @return
+     * @return Geldbetrag
      */
     private static String formatGeldbetragString(String geldbetrag)
     {
+    	assert geldbetrag != null : "Vorbedingung verletzt: geldbetrag != null!";
+
     	if(!geldbetrag.contains(","))
     	{
     		geldbetrag = geldbetrag.concat(",00");
@@ -355,5 +359,16 @@ public class Geldbetrag
     	    	
     	return geldbetrag;
     }
-        
+    
+    /**
+     * Prüft, ob ein Key in der werteMenge existiert.
+     * 
+     * @require key != null
+     * @param key der Key
+     * @return boolean (key existiert in wertemenge)
+     */
+    public static boolean existiertKey(String key)
+    {
+    	return werteMenge.containsKey(key);      
+    }
 }

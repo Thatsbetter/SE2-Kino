@@ -79,13 +79,13 @@ public class VorstellungTest
                 _11_07_2008, Geldbetrag.selectGeldbetrag(1230));
         Set<Platz> s = new HashSet<Platz>();
 
-        assertEquals(0, v.getPreisFuerPlaetze(s));
+        assertEquals(Geldbetrag.selectGeldbetrag(0), v.getPreisFuerPlaetze(s));
 
         s.add(Platz.get(5, 5));
         s.add(Platz.get(5, 6));
         s.add(Platz.get(5, 7));
 
-        assertEquals(Geldbetrag.selectGeldbetrag(1230), v.getPreisFuerPlaetze(s));
+        assertEquals(Geldbetrag.selectGeldbetrag(3690), v.getPreisFuerPlaetze(s));
     }
 
     @Test

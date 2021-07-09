@@ -10,7 +10,6 @@ import java.awt.event.WindowEvent;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
 
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
-import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.GeldbetragTest;
 
 /**
  * TODO für Blatt 8: Löschen
@@ -51,6 +50,9 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
     {
         _ui = new BarzahlungsWerkzeugUI();
         registriereUIAktionen();
+        _preis = Geldbetrag.selectGeldbetrag(0);
+        reagiereAufEingabeText(_ui.getGezahltTextfield()
+                .getText());
     }
 
     /**
@@ -186,6 +188,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
         int eingabeBetrag = Geldbetrag.selectGeldbetrag(eingabePreis).getEurocent();
         _ausreichenderGeldbetrag = (eingabeBetrag >= _preis.getEurocent());
         int differenz = Math.abs(eingabeBetrag - _preis.getEurocent());
+        
         zeigeRestbetrag(differenz);
 
         zeigeAusreichenderGeldbetragStatus();                      
@@ -289,8 +292,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      */
     private void zeigePreis()
     {
-    	//TODO: Einheit "Euro"
         _ui.getPreisTextfield()
-            .setText(_preis.getFormatiertenString()+ " Euro");
+            .setText(_preis.getFormatiertenString());
     }
 }
