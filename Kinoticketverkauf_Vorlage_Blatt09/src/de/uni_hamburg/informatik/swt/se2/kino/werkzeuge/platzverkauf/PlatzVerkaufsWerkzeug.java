@@ -135,14 +135,14 @@ public class PlatzVerkaufsWerkzeug
             Geldbetrag preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             // Geldbetrag preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             _ui.getPreisLabel()
-                .setText("Gesamtpreis: " + preis + " Euro");
+                .setText("Gesamtpreis: " + preis + " €");
             _ausgewaehlterGesamtbetrag = preis;
         }
         else if (istStornierenMoeglich(plaetze))
         {
             Geldbetrag preis = _vorstellung.getPreisFuerPlaetze(plaetze);
             _ui.getPreisLabel()
-                .setText("Gesamtstorno: " + preis + " Euro");
+                .setText("Gesamtstorno: " + preis + " €");
         }
         else if (!plaetze.isEmpty())
         {
@@ -152,7 +152,7 @@ public class PlatzVerkaufsWerkzeug
         else
         {
             _ui.getPreisLabel()
-                .setText("Gesamtpreis: 0 Euro");
+                .setText("Gesamtpreis: 0 €");
         }
     }
 
